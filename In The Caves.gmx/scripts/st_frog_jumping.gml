@@ -21,6 +21,9 @@ switch(argument0)
         
         // Apply physics force
         physics_apply_local_impulse(x, y - 8, lengthdir_x(jump_energy, jump_direction), lengthdir_y(jump_energy, jump_direction));
+        
+        // Play sound
+        audio_play_sound(snd_Jump, 0, false);
         break;
     case 1: // Action to be performed before state is replaced
         break;

@@ -4,7 +4,10 @@
     <Config>Configs\Default</Config>
   </Configs>
   <NewExtensions/>
-  <sounds name="sound"/>
+  <sounds name="sound">
+    <sound>sound\snd_Jump</sound>
+    <sound>sound\snd_Eat</sound>
+  </sounds>
   <sprites name="sprites">
     <sprite>sprites\spr_rock</sprite>
     <sprite>sprites\spr_frog</sprite>
@@ -19,6 +22,7 @@
   <backgrounds name="background">
     <background>background\bg_sky</background>
     <background>background\bg_title</background>
+    <background>background\bg_caves</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">

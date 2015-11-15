@@ -293,9 +293,9 @@ if ( returnToTitle == true ) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>// Show Fly Score Counter
-//draw_sprite(spr_fly, 0, view_wview - 80, 20);
-//draw_text(view_wview - 60, 20, string(fliesEaten));
+            <string>/// Show Fly Score Counter
+draw_sprite_ext(spr_fly, 0, view_wport - 50, 40, 3, 3, direction, image_blend, image_alpha);
+draw_text(view_wport - 30, 30, string(fliesEaten));
 </string>
           </argument>
         </arguments>

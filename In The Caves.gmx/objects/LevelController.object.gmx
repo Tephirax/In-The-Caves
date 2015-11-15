@@ -70,7 +70,7 @@ show_debug_message("Created ds_grid with columns, rows: " + string(numColumns) +
             <kind>1</kind>
             <string>/// Set random background colour
 color_random = make_color_hsv(random(255), random(255), random(100));
-background_color = color_random;
+background_blend = color_random;
 </string>
           </argument>
         </arguments>
@@ -138,15 +138,15 @@ for ( r = 0; r &lt; 40; r++ ) {
 }
 
 // Surface
-for ( r = 0; r &lt; 30; r++ ) {
+for ( r = 0; r &lt; 24; r++ ) {
     for ( c = 0; c &lt; numColumns - 1; c++ ) {
         // Set top 13 rows to empty (will be sky)
-        if ( r &lt; 11 ) {
+        if ( r &lt; 9 ) {
             mapgrid[# c, r] = false;
         }
         else if ( c &lt; shaft_position - 4 || c &gt; shaft_position + 4 ) {
             // Set rows 14-20 to random terrain
-            if ( r &lt; 20 ) {
+            if ( r &lt; 16 ) {
                 if ( random(1) &lt; rockChance ) {
                     mapgrid[# c, r] = true;
                 }
@@ -210,10 +210,12 @@ for ( rf = 30; rf &lt; numRows; rf++ ) {
         // Randomise flies
         if ( random(1) &lt; flyChance ) {
             var nbs = countAliveNeighbours(cf, rf);
-            if ( mapgrid[# cf, rf] = false &amp;&amp; nbs == 0 ) {
+            if ( mapgrid[# cf, rf] == false &amp;&amp; nbs == 0 ) {
                 itemgrid[# cf, rf] = 1;
+                show_debug_message("cf, rf = " + string(cf) + ", " + string(rf) + "; nbs = " + string(nbs) + "; fly created.");
             } else {
                 itemgrid[# cf, rf] = 0;
+                show_debug_message("cf, rf = " + string(cf) + ", " + string(rf) + "; nbs = " + string(nbs) + "; fly not created due to conflict.");
             }   
         } else {
             itemgrid[# cf, rf] = 0;
@@ -323,41 +325,84 @@ if ( validLevel == true ) {
                 //show_debug_message("rock created at column, row = " + string(c) + ", " + string(r));
 
                 // Create Collision Objects on all upper surfaces
-                if ( r &gt; 0 &amp;&amp; mapgrid[# c, r - 1] == false ) {
+                if ( r &gt; 0 &amp;&amp; mapgrid[# c, r - 1] == false ) { // Above is empty
                     var rock = instance_create(c * tileWidth, r * tileHeight, obj_rock);
-                    rock.image_index = 1;
+                    // Assign sprite depending on whether top-left, top, top-right, top outlier (single block with nothing to left or right), left outlier 
+                    // (single block with nothing left, above or below, right outlier (single block with nothing right, above or below) or solo (single block with no neighbours)
+                    if ( mapgrid[# c - 1, r] == false ) { // Left is empty
+                        if ( mapgrid[# c + 1, r] == false ) { // Right is empty
+                            if ( mapgrid[# c, r + 1] == false ) { // Below is empty - rock is solo
+                                rock.image_index = 11;
+                            } else { // Below is rock - rock is top outlier
+                                rock.image_index = 9;
+                            }
+                        } else if ( mapgrid[# c, r + 1] == false ) { // Right is rock, Below is empty - rock is left outlier
+                            rock.image_index = 10;
+                        } else { // Right is rock, Below is rock - rock is top-left
+                            rock.image_index = 0;
+                        }
+                    } else { // Left is rock
+                        if ( mapgrid[# c + 1, r] == false ) { // Right is empty
+                            if ( mapgrid[# c, r + 1] == false ) { // Below is empty - rock is right outlier
+                                rock.image_index = 12;
+                            } else { // Below is rock - rock is top-right
+                                rock.image_index = 2;
+                            }
+                        } else { // Right is rock - rock is top
+                            rock.image_index = 1;
+                        }
+                    }
                     instance_create(c * tileWidth, r * tileHeight, obj_collision);
                 }
                 // Create Collision Objects on all lower surfaces
-                else if ( r &lt; numRows - 1 &amp;&amp; mapgrid[# c, r + 1] == false ) {
+                else if ( r &lt; numRows - 1 &amp;&amp; mapgrid[# c, r + 1] == false ) { // Below is empty
                     var rock = instance_create(c * tileWidth, r * tileHeight, obj_rock);
-                    rock.image_index = 2;
+                    // Assign sprite depending on whether bottom-left, bottom, bottom-right or bottom outlier (single block with nothing below, left or right)
+                    if ( mapgrid[# c - 1, r] == false ) { // Left is empty
+                        if ( mapgrid[# c + 1, r] == false ) { // Right is empty - rock is bottom outlier
+                            rock.image_index = 13;                                                    
+                        } else { // Right is rock - rock is bottom-left
+                            rock.image_index = 6;
+                        }
+                    } else { // Left is rock
+                        if ( mapgrid[# c + 1, r] == false ) { // Right is empty - rock is bottom-right
+                            rock.image_index = 8;
+                        } else { // Right is rock - rock is bottom
+                            rock.image_index = 7;
+                        }
+                    }
                     instance_create(c * tileWidth, r * tileHeight, obj_collision);
                 }
                 // Fill in gaps on left or right side walls
                 else if ( r &gt; 0 &amp;&amp; r &lt; numRows - 1 &amp;&amp; c &gt; 0 &amp;&amp; c &lt; numColumns - 1
                 &amp;&amp; mapgrid[# c, r - 1] == true &amp;&amp; mapgrid[# c, r + 1] == true 
                 &amp;&amp; ( mapgrid[# c + 1, r] == false || mapgrid[# c - 1, r] == false ) ) { // Rocks above &amp; below
-                    if ( mapgrid[# c + 1, r] == false ) { // Empty to the right 
+                    if ( mapgrid[# c + 1, r] == false ) { // Empty to the right - rock is mid-right
                         var rock = instance_create(c * tileWidth, r * tileHeight, obj_rock);
-                        rock.image_index = 4;
+                        rock.image_index = 5;
                         instance_create(c * tileWidth, r * tileHeight, obj_collision);
                     }
-                    else if ( mapgrid[# c - 1, r] == false) { // Empty to the left 
+                    else if ( mapgrid[# c - 1, r] == false) { // Empty to the left - rock is mid-left
                         var rock = instance_create(c * tileWidth, r * tileHeight, obj_rock);
                         rock.image_index = 3;
                         instance_create(c * tileWidth, r * tileHeight, obj_collision);
                     }
                 }
                 // Handle left/right-most columns
-                else if (( c = 0 &amp;&amp; mapgrid[# c + 1, r] == false) || (c = numColumns - 1 &amp;&amp; mapgrid[# c - 1, r] == false))
-                {
+                else if ( c = 0 &amp;&amp; mapgrid[# c + 1, r] == false) { // Left-most column - Exposed rocks should be mid-right
                     var rock = instance_create(c * tileWidth, r * tileHeight, obj_rock);
+                    rock.image_index = 5;
+                    instance_create(c * tileWidth, r * tileHeight, obj_collision);                
+                }
+                else if ( c = numColumns - 1 &amp;&amp; mapgrid[# c - 1, r] == false) { // Right-most column - Exposed rocks should be mid-left
+                    var rock = instance_create(c * tileWidth, r * tileHeight, obj_rock);
+                    rock.image_index = 3;
                     instance_create(c * tileWidth, r * tileHeight, obj_collision);
                 }
                 // Create all other rocks
                 else {
-                    instance_create(c * tileWidth, r * tileHeight, obj_rock);
+                    var rock = instance_create(c * tileWidth, r * tileHeight, obj_rock);
+                    rock.image_index = 4;
                 }
             } 
             // Create flies
