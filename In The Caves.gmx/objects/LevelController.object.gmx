@@ -284,7 +284,7 @@ for ( r = numRows - 20; r &lt; numRows - 5; r++) {
                     if ( validCavity == true ) {
                         start_x = c * tileWidth;
                         start_y = (r - 1) * tileHeight;
-                        instance_create(start_x, start_y + 4, obj_door);
+                        instance_create(start_x, start_y + 8, obj_door);
                         instance_create(start_x, start_y, obj_frog);
                         show_debug_message("Safe location found. Player object created.");
                         validFloor = false;
@@ -492,7 +492,7 @@ ds_grid_destroy(newgrid);
             <string>/// Add lid to shaft when Win Condition met
 if ( (GameState.levelWin == true || GameState.returnToTitle == true) &amp;&amp; lidCreated == false) {
     for ( c = shaft_position - 4; c &lt; shaft_position + 4; c++ ) {
-        instance_create(c * tileWidth, 12 * tileHeight, obj_collision);
+        instance_create(c * tileWidth, 14 * tileHeight, obj_collision);
     }
     lidCreated = true;
 }

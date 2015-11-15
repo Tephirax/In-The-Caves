@@ -244,11 +244,12 @@ if ( !instance_exists(LevelController) ) {
           <argument>
             <kind>1</kind>
             <string>/// Show debug level creation values
-draw_text(20, 20, "birthLimit = " + string(birthLimit));
-draw_text(20, 40, "deathLimit = " + string(deathLimit));
-draw_text(20, 60, "rockChance (%) = " + string(rockChance * 100));
-draw_text(20, 80, "flyChance (%) = " + string(flyChance * 100));
-draw_text(20, 100, "numSteps = " + string(numSteps));
+//draw_text(20, 20, "birthLimit = " + string(birthLimit));
+//draw_text(20, 40, "deathLimit = " + string(deathLimit));
+//draw_text(20, 60, "rockChance (%) = " + string(rockChance * 100));
+//draw_text(20, 80, "flyChance (%) = " + string(flyChance * 100));
+//draw_text(20, 100, "numSteps = " + string(numSteps));
+
 </string>
           </argument>
         </arguments>
@@ -271,7 +272,8 @@ draw_text(20, 100, "numSteps = " + string(numSteps));
             <kind>1</kind>
             <string>/// Show Congratulations
 if ( returnToTitle == true ) {
-    draw_text(view_wview / 2, view_hview, "Level Complete!");   
+    draw_text(view_wport / 2 - 100, view_hport / 2 - 30, "Congratulations");   
+    draw_text(view_wport / 2 - 135, view_hport / 2 - 5, "on escaping the depths!");   
 }
 </string>
           </argument>

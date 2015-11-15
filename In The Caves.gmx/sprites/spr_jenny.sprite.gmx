@@ -7,19 +7,19 @@
   <coltolerance>0</coltolerance>
   <sepmasks>0</sepmasks>
   <bboxmode>0</bboxmode>
-  <bbox_left>7</bbox_left>
-  <bbox_right>116</bbox_right>
-  <bbox_top>9</bbox_top>
-  <bbox_bottom>37</bbox_bottom>
+  <bbox_left>24</bbox_left>
+  <bbox_right>140</bbox_right>
+  <bbox_top>7</bbox_top>
+  <bbox_bottom>35</bbox_bottom>
   <HTile>0</HTile>
   <VTile>0</VTile>
   <TextureGroups>
     <TextureGroup0>0</TextureGroup0>
   </TextureGroups>
   <For3D>0</For3D>
-  <width>140</width>
-  <height>47</height>
+  <width>150</width>
+  <height>40</height>
   <frames>
-    <frame index="0">images\spr_pressbutton_0.png</frame>
+    <frame index="0">images\spr_jenny_0.png</frame>
   </frames>
 </sprite>

@@ -10,6 +10,7 @@
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\spr_rock</sprite>
+    <sprite>sprites\spr_frogjump</sprite>
     <sprite>sprites\spr_frog</sprite>
     <sprite>sprites\spr_Controller</sprite>
     <sprite>sprites\spr_Collision</sprite>
@@ -18,11 +19,15 @@
     <sprite>sprites\spr_title</sprite>
     <sprite>sprites\spr_pressbutton</sprite>
     <sprite>sprites\spr_fly</sprite>
+    <sprite>sprites\spr_rob</sprite>
+    <sprite>sprites\spr_jenny</sprite>
   </sprites>
   <backgrounds name="background">
+    <background>background\bg_skyclouds</background>
     <background>background\bg_sky</background>
     <background>background\bg_title</background>
     <background>background\bg_caves</background>
+    <background>background\bg_cavestitle</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
@@ -38,10 +43,11 @@
       <script>scripts\statestop.gml</script>
     </scripts>
     <script>scripts\st_frog_idle.gml</script>
-    <script>scripts\st_frog_jumpleft.gml</script>
     <script>scripts\st_frog_jumping.gml</script>
-    <script>scripts\st_frog_jumpright.gml</script>
   </scripts>
+  <fonts name="fonts">
+    <font>fonts\font0</font>
+  </fonts>
   <objects name="objects">
     <objects name="Game Objects/Controllers">
       <object>objects\GameState</object>
@@ -58,6 +64,9 @@
     <object>objects\obj_title</object>
     <object>objects\obj_pressbutton</object>
     <object>objects\obj_fly</object>
+    <object>objects\obj_titlefrog</object>
+    <object>objects\obj_jenny</object>
+    <object>objects\obj_rob</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_title</room>

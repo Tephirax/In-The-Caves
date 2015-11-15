@@ -19,6 +19,16 @@ switch(argument0)
         buttonJumpPressed = -1;
         buttonJump = false;
         
+        // Change sprite
+        if ( jump_direction != 270 ) {
+            sprite_index = spr_frogjump;
+            if ( jump_direction < 90 || jump_direction > 270 ) {
+                image_xscale = 1;    
+            } else {
+                image_xscale = -1;
+            }
+        }
+        
         // Apply physics force
         physics_apply_local_impulse(x, y - 8, lengthdir_x(jump_energy, jump_direction), lengthdir_y(jump_energy, jump_direction));
         
@@ -31,7 +41,12 @@ switch(argument0)
         // Check if frog has returned to ground
         if ( t > 30 && jump_test == true ) {
             show_debug_message("Frog has touched down");
+            sprite_index = spr_frog;
             statechange(st_frog_idle);
+        }
+        
+        if ( t == 40 ) {
+            sprite_index = spr_frog;
         }
         break;
 }

@@ -67,7 +67,6 @@ if ( !GameState.isMenu ) {
         }
                 
         // If absolute value of either x/y_axis_value was > 0.4 (pressed in a direction), and both are now < 0.1 (centred), jump...
-        //if ( ((abs(x_axis_value) > 0.4 || abs(y_axis_value) > 0.4) && (abs(h_point) < 0.1 && abs(v_point) < 0.1)) || buttonJump ) {
         if ( stickJump || buttonJump ) {
             jump_direction = jumpDir;
             show_debug_message("Jumping in direction " + string(jump_direction));
@@ -80,12 +79,14 @@ if ( !GameState.isMenu ) {
     }
 
 
+    
+    
     // Enable Up to regenerate level even mid-jump
-    if ( (keyboard_check(vk_up) || gamepad_button_value(0, gp_face4)) ) {
-        keyboard_clear(vk_up);
+    if ( (keyboard_check(vk_enter) || gamepad_button_value(0, gp_face4)) ) {
+        keyboard_clear(vk_enter);
         if ( instance_exists(obj_door) ) {
             //var dist = point_distance(x, y, obj_door.x, obj_door.y);
-            //if ( dist < 64 ) {
+            //if ( dist < 32 ) {
                 GameState.doorActive = true;
                 show_debug_message("Door activated");
             //}
@@ -177,11 +178,5 @@ if ( !GameState.isMenu ) {
             // Call jumping state
             statechange(st_frog_jumping);
         }
-        /*if ( keyboard_check(vk_numpad1) ) {
-            statechange(st_frog_jumpleft);
-        }
-        else if ( keyboard_check(vk_right) ) {
-            statechange(st_frog_jumpright);
-        }*/
     }
 }
