@@ -12,6 +12,8 @@ switch(argument0)
         jumpPower = 0;
         jumpDir = 0;
         
+        keyJumpPressed = -1;
+        keyJump = false;
         stickJumpPressed = false;
         stickJump = false;
         buttonJumpPressed = -1;

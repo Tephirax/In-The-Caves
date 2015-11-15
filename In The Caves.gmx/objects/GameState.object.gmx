@@ -35,15 +35,23 @@ regenerateCount = 0;
 levelWin = false;
 returnToTitle = false;
 
+fliesEaten = 0;
+
 // Generate random number
 randomize();
 
 // Level Creation Variables
-birthLimit = round(random(8)) ; // If an empty cell has more than this number of neighbours it'll become rock
-deathLimit = round(random(8)); // If a rock has less than this number of neighbours it'll become empty
-rockChance = random(0.6) + 0.1;
-flyChance = random(0.001);
-numSteps = round(random(7)) + 1; 
+//birthLimit = round(random(8)) ; // If an empty cell has more than this number of neighbours it'll become rock
+//deathLimit = round(random(8)); // If a rock has less than this number of neighbours it'll become empty
+//rockChance = random(0.6) + 0.1;
+//flyChance = random(0.001);
+//numSteps = round(random(7)) + 1; 
+
+birthLimit = 4 ; // If an empty cell has more than this number of neighbours it'll become rock
+deathLimit = 5; // If a rock has less than this number of neighbours it'll become empty
+rockChance = 0.35;
+flyChance = 0.005;
+numSteps = 6;
 </string>
           </argument>
         </arguments>
@@ -196,10 +204,17 @@ if ( regenerateLevel == true ) {
             <string>/// Recreate LevelController if destroyed
 // Randomise parameters if level has failed to initialise 5 times
 if ( regenerateCount &gt;= 5 ) {
-    birthLimit = round(random(2)) + 2; // If an empty cell has more than this number of neighbours it'll become rock
-    deathLimit = round(random(2)) + 2; // If a rock has less than this number of neighbours it'll become empty
-    rockChance = random(0.3) + 0.2;
-    numSteps = round(random(6)) + 2;
+    //birthLimit = round(random(8)) ; // If an empty cell has more than this number of neighbours it'll become rock
+    //deathLimit = round(random(8)); // If a rock has less than this number of neighbours it'll become empty
+    //rockChance = random(0.6) + 0.1;
+    //flyChance = random(0.001);
+    //numSteps = round(random(7)) + 1; 
+
+    birthLimit = 4 ; // If an empty cell has more than this number of neighbours it'll become rock
+    deathLimit = 3; // If a rock has less than this number of neighbours it'll become empty
+    rockChance = 0.35;
+    flyChance = 0.005;
+    numSteps = 6;
     regenerateCount = 0;
 }
 
@@ -258,6 +273,29 @@ draw_text(20, 100, "numSteps = " + string(numSteps));
 if ( returnToTitle == true ) {
     draw_text(view_wview / 2, view_hview, "Level Complete!");   
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>// Show Fly Score Counter
+//draw_sprite(spr_fly, 0, view_wview - 80, 20);
+//draw_text(view_wview - 60, 20, string(fliesEaten));
 </string>
           </argument>
         </arguments>

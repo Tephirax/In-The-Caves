@@ -32,6 +32,8 @@ wall_test = false;
 jump_direction = 0;
 jump_energy = 0;
 
+keyJumpPressed = -1;
+keyJump = false;
 stickJumpPressed = false;
 stickJump = false;
 buttonJumpPressed = -1;
@@ -43,7 +45,6 @@ pdist = 0;
 pdir = 0;
 jumpDir = 0;
 jumpPower = 0;
-
 </string>
           </argument>
         </arguments>
@@ -176,7 +177,7 @@ if _state = st_frog_jumping &amp;&amp; _statetime &gt; 30 {
             <kind>1</kind>
             <string>/// Win Condition Handling
 // If frog reaches the surface, set levelWin flag
-if ( y &lt; 50 &amp;&amp; GameState.returnToTitle == false ) {
+if ( y &lt; (12 * LevelController.tileHeight) &amp;&amp; GameState.returnToTitle == false ) {
     GameState.levelWin = true;
     show_debug_message("Level Complete");
 }

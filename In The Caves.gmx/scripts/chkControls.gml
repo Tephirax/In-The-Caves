@@ -91,13 +91,97 @@ if ( !GameState.isMenu ) {
             //}
         }
     }
+    /// Basic keyboard controls
     // If frog is in the idle state
     else if ( argument0 == st_frog_idle ) {
-        if ( keyboard_check(vk_left) ) {
+        // Jump low left
+        if ( keyboard_check(vk_numpad1) ) {
+            jumpDir = 330;
+            jumpPower = 0.5; 
+            keyJumpPressed = 1;
+        }
+        // Jump up with slight left tilt
+        else if ( keyboard_check(vk_numpad2) ) {
+            jumpDir = 275;
+            jumpPower = 0.8; 
+            keyJumpPressed = 2;
+        }
+        // Jump low right
+        else if ( keyboard_check(vk_numpad3) ) {
+            jumpDir = 210;
+            jumpPower = 0.5; 
+            keyJumpPressed = 3;
+        }
+        // Jump medium left
+        else if ( keyboard_check(vk_numpad4) ) {
+            jumpDir = 310;
+            jumpPower = 0.8; 
+            keyJumpPressed = 4;
+        }
+        // Jump up with slight right tilt
+        else if ( keyboard_check(vk_numpad5) ) {
+            jumpDir = 265;
+            jumpPower = 0.8; 
+            keyJumpPressed = 5;
+            //show_debug_message("Left shoulder button pressed.");
+        }
+        // Jump medium right
+        else if ( keyboard_check(vk_numpad6) ) {
+            jumpDir = 230;
+            jumpPower = 0.8; 
+            keyJumpPressed = 6;
+            //show_debug_message("Left shoulder button pressed.");
+        }
+        // Jump high left
+        else if ( keyboard_check(vk_numpad7) ) {
+            jumpDir = 290;
+            jumpPower = 1; 
+            keyJumpPressed = 7;
+            //show_debug_message("Left shoulder button pressed.");
+        }
+        // Jump up straight
+        else if ( keyboard_check(vk_numpad8) ) {
+            jumpDir = 270;
+            jumpPower = 1; 
+            keyJumpPressed = 8;
+            //show_debug_message("Left shoulder button pressed.");
+        }
+        // Jump high right
+        else if ( keyboard_check(vk_numpad9) ) {
+            jumpDir = 250;
+            jumpPower = 1; 
+            keyJumpPressed = 9;
+            //show_debug_message("Left shoulder button pressed.");
+        }
+        
+        if ( (keyJumpPressed == 1 && keyboard_check_released(vk_numpad1))
+           ||(keyJumpPressed == 2 && keyboard_check_released(vk_numpad2))
+           ||(keyJumpPressed == 3 && keyboard_check_released(vk_numpad3))
+           ||(keyJumpPressed == 4 && keyboard_check_released(vk_numpad4))
+           ||(keyJumpPressed == 5 && keyboard_check_released(vk_numpad5))
+           ||(keyJumpPressed == 6 && keyboard_check_released(vk_numpad6))
+           ||(keyJumpPressed == 7 && keyboard_check_released(vk_numpad7))
+           ||(keyJumpPressed == 8 && keyboard_check_released(vk_numpad8))
+           ||(keyJumpPressed == 9 && keyboard_check_released(vk_numpad9))
+           ) {
+            keyJumpPressed = -1;
+            keyJump = true;
+        }
+        
+        if ( keyJump ) {
+            jump_direction = jumpDir;
+            show_debug_message("Jumping in direction " + string(jump_direction));
+            jump_energy = jumpPower * jump_force;
+            show_debug_message("Jump energy = " + string(jump_energy));
+            
+            // Call jumping state
+            statechange(st_frog_jumping);
+        }
+        /*if ( keyboard_check(vk_numpad1) ) {
             statechange(st_frog_jumpleft);
         }
         else if ( keyboard_check(vk_right) ) {
             statechange(st_frog_jumpright);
-        }
+        }*/
     }
 }

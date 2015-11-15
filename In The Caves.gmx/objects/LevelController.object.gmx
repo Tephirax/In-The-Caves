@@ -35,8 +35,8 @@ numSteps = GameState.numSteps;
 tileWidth = sprite_get_width(spr_rock);
 tileHeight = sprite_get_height(spr_rock);
 
-numRows = (room_height / tileHeight);
-numColumns = (room_width / tileWidth);
+numRows = ceil(room_height / tileHeight);
+numColumns = ceil(room_width / tileWidth);
 
 validLevel = false;
 

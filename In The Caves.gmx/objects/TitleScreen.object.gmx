@@ -76,7 +76,8 @@ starting = false;
 if ( (gamepad_button_value(0, gp_face1) 
     ||gamepad_button_value(0, gp_face2)
     ||gamepad_button_value(0, gp_face3)
-    ||gamepad_button_value(0, gp_face4)) 
+    ||gamepad_button_value(0, gp_face4)
+    ||keyboard_check(vk_space) ) 
     &amp;&amp; !starting ) {
     if !instance_exists(LoadingScreen) {
         instance_create(0, 0, LoadingScreen);
